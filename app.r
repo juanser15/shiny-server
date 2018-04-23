@@ -29,8 +29,6 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output) {
-  library(archivist)
-  library(dplyr)
   output$graph <- renderDygraph({
     withProgress(message = "Loading...", {
       dygraph(Mean_nor, main = "Normalized mean of revenues", ylab = "Value") %>% 
