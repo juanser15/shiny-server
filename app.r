@@ -2,8 +2,7 @@ library(dygraphs)
 library(shiny)
 library(shinydashboard)
 
-DATA_DIR <- file.path("data")
-Fuente <-   file.path(DATA_DIR, "Appdata.RData")
+Fuente <-   file.path("Appdata.RData")
 load(Fuente)
 
 ui <- dashboardPage(
