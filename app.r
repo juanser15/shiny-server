@@ -9,29 +9,7 @@ library(dplyr)
 
 datos <- load("DatosGLOBALES1.RData")
 
-datos <- data.frame(Website = as.character(DATOS[,"Website"]),
-                    Provincia = as.character(DATOS[,"Provincia"]),
-                    Latitud = as.numeric(DATOS[,"Latitud"]),
-                    Longitud = as.numeric(DATOS[,"Longitud"]),
-                    Tipo = as.character(DATOS[,"Tipo"]),
-                    Precio = as.numeric(DATOS[,"Precio"]),
-                    Dormitorios = as.numeric(DATOS[,"Dormitorios"]),
-                    Camas = as.numeric(DATOS[,"Camas"]),
-                    Banos = as.numeric(DATOS[,"Baños"]),
-                    Proveedor = as.character(DATOS[,"Proveedor"]),stringsAsFactors = FALSE)
 
-datos <- datos[-which(is.na(datos$Provincia)),]
-datos$Website <- trimws(datos$Website)
-datos$Provincia <- trimws(datos$Provincia)
-datos$Tipo <- trimws(datos$Tipo)
-datos$Precio <- trimws(datos$Precio)
-datos$Dormitorios <- trimws(datos$Dormitorios)
-datos$Camas <- trimws(datos$Camas)
-datos$Banos <- trimws(datos$Banos)
-datos$Proveedor <- trimws(datos$Proveedor)
-
-vars <- c("Todas", sort(unique((datos$Provincia))))
-vars1 <- c("Todos", sort(unique((datos$Proveedor))))
 
 counts <- ddply(datos,.(datos$Proveedor,datos$Provincia),nrow)
 counts <- na.omit(counts)
@@ -162,6 +140,22 @@ server <- function(input, output, session) {
                               Dormitorios = as.numeric(DATA$Dormitorios),
                               Camas = as.numeric(DATA$Camas),
                               Banos = as.numeric(DATA$Banos),stringsAsFactors = FALSE)
+    
+               if(input$Filtro4 == "Camas"){
+             output <-    DATA %>% 
+             group_by(Camas) %>%
+             summarise(Precio.ARS  = ceiling(mean(Precio)),
+                       Dormitorios  = ceiling(mean(Dormitorios)),
+                       Banos = ceiling(mean(Banos)))
+           } else {
+               output <-         DATA %>% 
+                       group_by(Banos) %>%
+                       summarise(Precio.ARS  = ceiling(mean(Precio)),
+                                 Dormitorios  = ceiling(mean(Dormitorios)),
+                                 Camas = ceiling(mean(Camas)))
+           }
+           
+         data.table(output)
 
       })
 }
