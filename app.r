@@ -69,7 +69,7 @@ ui <- navbarPage("Alojamientos Argentina", id="nav",
                          selectInput("Filtro0", "Proveedor", unique(datos$Proveedor)),
                          uiOutput('columns'),
                          uiOutput('columns1'), 
-                         selectInput("Filtro4", "Bano/Camas", c("Bano","Camas"))
+                         selectInput("Filtro4", "Baños/Camas", c("Baño","Camas"))
                          
                          
            ))
