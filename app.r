@@ -33,11 +33,6 @@ datos$Proveedor <- trimws(datos$Proveedor)
 vars <- c("Todas", sort(unique((datos$Provincia))))
 vars1 <- c("Todos", sort(unique((datos$Proveedor))))
 
-counts <- ddply(datos,.(datos$Proveedor,datos$Provincia),nrow)
-counts <- na.omit(counts)
-names(counts) <- c("Proveedor","Provincia","Cantidad")
-
-
 ui <- navbarPage("Alojamientos Argentina", id="nav",
 
   tabPanel("Mapa Interactivo",
