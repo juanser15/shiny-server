@@ -16,7 +16,7 @@ datos <- data.frame(Website = as.character(DATOS[,"Website"]),
                     Precio = as.numeric(DATOS[,"Precio"]),
                     Dormitorios = as.numeric(DATOS[,"Dormitorios"]),
                     Camas = as.numeric(DATOS[,"Camas"]),
-                    Baños = as.numeric(DATOS[,"Baños"]),
+                    BaÃ±os = as.numeric(DATOS[,"BaÃ±os"]),
                     Proveedor = as.character(DATOS[,"Proveedor"]),stringsAsFactors = FALSE)
 
 datos <- datos[-which(is.na(datos$Provincia)),]
@@ -26,7 +26,7 @@ datos$Tipo <- trimws(datos$Tipo)
 datos$Precio <- trimws(datos$Precio)
 datos$Dormitorios <- trimws(datos$Dormitorios)
 datos$Camas <- trimws(datos$Camas)
-datos$Baños <- trimws(datos$Baños)
+datos$BaÃ±os <- trimws(datos$BaÃ±os)
 datos$Proveedor <- trimws(datos$Proveedor)
 
 vars <- c("Todas", sort(unique((datos$Provincia))))
@@ -44,8 +44,8 @@ ui <- navbarPage("Alojamientos Argentina", id="nav",
 
       tags$head(
         # Include our custom CSS
-        includeCSS(paste0(Sys.getenv("USERPROFILE"),"\\Dropbox\\Momentum - Serur\\Shiny App - Camara Hotelera\\styles.css")),
-        includeScript(paste0(Sys.getenv("USERPROFILE"),"\\Dropbox\\Momentum - Serur\\Shiny App - Camara Hotelera\\gomap.js"))
+        includeCSS("styles.css"),
+        includeScript("gomap.js")
       ),
       
       leafletOutput("map", width="100%", height="100%"),
@@ -73,7 +73,7 @@ ui <- navbarPage("Alojamientos Argentina", id="nav",
                          selectInput("Filtro0", "Proveedor", unique(datos$Proveedor)),
                          uiOutput('columns'),
                          uiOutput('columns1'), 
-                         selectInput("Filtro4", "Baño/Camas", c("Baño","Camas"))
+                         selectInput("Filtro4", "BaÃ±o/Camas", c("BaÃ±o","Camas"))
                          
                          
            ))
@@ -160,16 +160,16 @@ server <- function(input, output, session) {
            DATA <- data.frame(Precio = as.numeric(DATA$Precio),
                               Dormitorios = as.numeric(DATA$Dormitorios),
                               Camas = as.numeric(DATA$Camas),
-                              Baños = as.numeric(DATA$Baños),stringsAsFactors = FALSE)
+                              BaÃ±os = as.numeric(DATA$BaÃ±os),stringsAsFactors = FALSE)
            if(input$Filtro4 == "Camas"){
              output <-    DATA %>% 
              group_by(Camas) %>%
              summarise(Precio.ARS  = ceiling(mean(Precio)),
                        Dormitorios  = ceiling(mean(Dormitorios)),
-                       Baños = ceiling(mean(Baños)))
+                       BaÃ±os = ceiling(mean(BaÃ±os)))
            } else {
                output <-         DATA %>% 
-                       group_by(Baños) %>%
+                       group_by(BaÃ±os) %>%
                        summarise(Precio.ARS  = ceiling(mean(Precio)),
                                  Dormitorios  = ceiling(mean(Dormitorios)),
                                  Camas = ceiling(mean(Camas)))
