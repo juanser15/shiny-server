@@ -17,7 +17,7 @@ datos <- data.frame(Website = as.character(DATOS[,"Website"]),
                     Precio = as.numeric(DATOS[,"Precio"]),
                     Dormitorios = as.numeric(DATOS[,"Dormitorios"]),
                     Camas = as.numeric(DATOS[,"Camas"]),
-                    Banos = as.numeric(DATOS[,"Baños"]),
+                    Baños = as.numeric(DATOS[,"Baños"]),
                     Proveedor = as.character(DATOS[,"Proveedor"]),stringsAsFactors = FALSE)
 
 datos <- datos[-which(is.na(datos$Provincia)),]
@@ -27,7 +27,7 @@ datos$Tipo <- trimws(datos$Tipo)
 datos$Precio <- trimws(datos$Precio)
 datos$Dormitorios <- trimws(datos$Dormitorios)
 datos$Camas <- trimws(datos$Camas)
-datos$Banos <- trimws(datos$Banos)
+datos$Baños <- trimws(datos$Baños)
 datos$Proveedor <- trimws(datos$Proveedor)
 
 vars <- c("Todas", sort(unique((datos$Provincia))))
@@ -40,8 +40,8 @@ ui <- navbarPage("Alojamientos Argentina", id="nav",
 
       tags$head(
         # Include our custom CSS
-        #includeCSS("styles.css"),
-        #includeScript("gomap.js")
+        includeCSS("styles.css"),
+        includeScript("gomap.js")
       ),
       
       leafletOutput("map", width="100%", height="100%"),
@@ -156,17 +156,17 @@ output$summary3 <- renderDataTable({
   DATA <- data.frame(Precio = as.numeric(DATA$Precio),
                      Dormitorios = as.numeric(DATA$Dormitorios),
                      Camas = as.numeric(DATA$Camas),
-                     Banos = as.numeric(DATA$Banos),stringsAsFactors = FALSE)
+                     Baños = as.numeric(DATA$Baños),stringsAsFactors = FALSE)
   
   if(input$Filtro4 == "Camas"){
     output <-    DATA %>% 
       group_by(Camas) %>%
       summarise(Precio.ARS  = ceiling(mean(Precio)),
                 Dormitorios  = ceiling(mean(Dormitorios)),
-                Banos = ceiling(mean(Banos)))
+                Baños = ceiling(mean(Baños)))
   } else {
     output <-         DATA %>% 
-      group_by(Banos) %>%
+      group_by(Baños) %>%
       summarise(Precio.ARS  = ceiling(mean(Precio)),
                 Dormitorios  = ceiling(mean(Dormitorios)),
                 Camas = ceiling(mean(Camas)))
