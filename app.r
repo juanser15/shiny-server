@@ -6,7 +6,7 @@ library(leaflet)
 #library(lattice)
 library(dplyr)
 
-datos <- load(file.path(www,"DatosGLOBALES1.RData"))
+datos <- load("DatosGLOBALES1.RData")
 
 datos <- data.frame(Website = as.character(DATOS[,"Website"]),
                     Provincia = as.character(DATOS[,"Provincia"]),
