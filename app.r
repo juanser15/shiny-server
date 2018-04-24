@@ -44,8 +44,8 @@ ui <- navbarPage("Alojamientos Argentina", id="nav",
 
       tags$head(
         # Include our custom CSS
-        includeCSS("styles.css"),
-        includeScript("gomap.js")
+        #includeCSS("styles.css"),
+        #includeScript("gomap.js")
       ),
       
       leafletOutput("map", width="100%", height="100%"),
