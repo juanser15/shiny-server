@@ -162,21 +162,7 @@ server <- function(input, output, session) {
                               Dormitorios = as.numeric(DATA$Dormitorios),
                               Camas = as.numeric(DATA$Camas),
                               Banos = as.numeric(DATA$Banos),stringsAsFactors = FALSE)
-           if(input$Filtro4 == "Camas"){
-             output <-    DATA %>% 
-             group_by(Camas) %>%
-             summarise(Precio.ARS  = ceiling(mean(Precio)),
-                       Dormitorios  = ceiling(mean(Dormitorios)),
-                       Banos = ceiling(mean(Banos)))
-           } else {
-               output <-         DATA %>% 
-                       group_by(Banos) %>%
-                       summarise(Precio.ARS  = ceiling(mean(Precio)),
-                                 Dormitorios  = ceiling(mean(Dormitorios)),
-                                 Camas = ceiling(mean(Camas)))
-           }
-           
-           data.table::data.table(output)
+
       })
 }
 
