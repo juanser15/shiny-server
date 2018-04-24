@@ -16,7 +16,7 @@ datos <- data.frame(Website = as.character(DATOS[,"Website"]),
                     Precio = as.numeric(DATOS[,"Precio"]),
                     Dormitorios = as.numeric(DATOS[,"Dormitorios"]),
                     Camas = as.numeric(DATOS[,"Camas"]),
-                    Baños = as.numeric(DATOS[,"Baños"]),
+                    Banos = as.numeric(DATOS[,"Baños"]),
                     Proveedor = as.character(DATOS[,"Proveedor"]),stringsAsFactors = FALSE)
 
 datos <- datos[-which(is.na(datos$Provincia)),]
@@ -26,7 +26,7 @@ datos$Tipo <- trimws(datos$Tipo)
 datos$Precio <- trimws(datos$Precio)
 datos$Dormitorios <- trimws(datos$Dormitorios)
 datos$Camas <- trimws(datos$Camas)
-datos$Baños <- trimws(datos$Baños)
+datos$Banos <- trimws(datos$Banos)
 datos$Proveedor <- trimws(datos$Proveedor)
 
 vars <- c("Todas", sort(unique((datos$Provincia))))
@@ -160,16 +160,16 @@ server <- function(input, output, session) {
            DATA <- data.frame(Precio = as.numeric(DATA$Precio),
                               Dormitorios = as.numeric(DATA$Dormitorios),
                               Camas = as.numeric(DATA$Camas),
-                              Baños = as.numeric(DATA$Baños),stringsAsFactors = FALSE)
+                              Banos = as.numeric(DATA$Banos),stringsAsFactors = FALSE)
            if(input$Filtro4 == "Camas"){
              output <-    DATA %>% 
              group_by(Camas) %>%
              summarise(Precio.ARS  = ceiling(mean(Precio)),
                        Dormitorios  = ceiling(mean(Dormitorios)),
-                       Baños = ceiling(mean(Baños)))
+                       Banos = ceiling(mean(Banos)))
            } else {
                output <-         DATA %>% 
-                       group_by(Baños) %>%
+                       group_by(Banos) %>%
                        summarise(Precio.ARS  = ceiling(mean(Precio)),
                                  Dormitorios  = ceiling(mean(Dormitorios)),
                                  Camas = ceiling(mean(Camas)))
