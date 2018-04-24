@@ -1,9 +1,9 @@
-library(foreign)
+#library(foreign)
 library(shiny)
 library(leaflet)
-library(RColorBrewer)
-library(scales)
-library(lattice)
+#library(RColorBrewer)
+#library(scales)
+#library(lattice)
 library(dplyr)
 
 datos <- load(file.path(www,"DatosGLOBALES1.RData"))
@@ -73,7 +73,7 @@ ui <- navbarPage("Alojamientos Argentina", id="nav",
                          selectInput("Filtro0", "Proveedor", unique(datos$Proveedor)),
                          uiOutput('columns'),
                          uiOutput('columns1'), 
-                         selectInput("Filtro4", "Baño/Camas", c("Baño","Camas"))
+                         selectInput("Filtro4", "Bano/Camas", c("Bano","Camas"))
                          
                          
            ))
